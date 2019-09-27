@@ -22,6 +22,11 @@
 					</a>
 				</li>
 				<li>
+                    <a href="<?php echo listingpro_social_sharing_whatsapp_button('whatsapp'); ?>" target="_blank"><!-- Whatsapp icon by Icons8 -->
+                        <i class="fa fa-whatsapp"></i>
+                    </a>
+                </li>
+				<li>
 					<a href="<?php echo listingpro_social_sharing_buttons('twitter'); ?>" target="_blank"><!-- twitter icon by Icons8 -->
 						<i class="fa fa-twitter"></i>
 					</a>
@@ -59,8 +64,7 @@
 	/* ============== Listingpro Sharing ============ */
 
 if( !function_exists('listingpro_sharing_v2' ) ){
-    function listingpro_sharing_v2()
-    {
+    function listingpro_sharing_v2(){
         ?>
         <a href="" class="lp-single-sharing"><i class="fa fa-share-alt" aria-hidden="true"></i> <?php echo esc_html__('Share', 'listingpro');?></a>
         <div class="md-overlay hide"></div>
@@ -68,6 +72,11 @@ if( !function_exists('listingpro_sharing_v2' ) ){
             <div>
                 <a href="<?php echo listingpro_social_sharing_buttons('facebook'); ?>" target="_blank"><!-- Facebook icon by Icons8 -->
                     <i class="fa fa-facebook"></i>
+                </a>
+            </div>
+            <div>
+                <a href="<?php echo listingpro_social_sharing_whatsapp_button('whatsapp'); ?>" target="_blank"><!-- Whatsapp icon by Icons8 -->
+                    <i class="fa fa-whatsapp"></i>
                 </a>
             </div>
             <div>
@@ -104,6 +113,22 @@ if( !function_exists('listingpro_sharing_v2' ) ){
         </div>
         <?php
     }
+}
+
+if(!function_exists('listingpro_social_sharing_whatsapp_button')){	
+	function listingpro_social_sharing_whatsapp_button($name) {
+		global $post;
+		if(is_singular( 'listing' ) || is_singular( 'post' ) || is_singular( 'events' ) || is_home() ){
+			$listingURL = urlencode(get_permalink());
+			$listingTitle = str_replace( ' ', '%20', get_the_title());
+			$listingThumbnail = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$whatsappURL = 'https://api.whatsapp.com/send?text='.$listingTitle.' '.$listingURL;
+			
+			if($name =='whatsapp'){
+				return $whatsappURL;
+			}
+		}
+	}
 }
 
 ?>
